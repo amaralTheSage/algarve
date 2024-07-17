@@ -12,8 +12,7 @@
         </a>
         <div class="relative mb-7">
             @if (Auth::id() === $comment->user_id)
-                <img src={{ asset('menu-icon.png') }} alt="" class="w-6" />
-                {{-- @include('Components.post-options') --}}
+                {{-- @livewire('post-options') --}}
             @endif
 
         </div>

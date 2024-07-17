@@ -10,7 +10,7 @@
 
 <body>
     <header class="flex justify-between mx-10 py-3 px-10 border-b-2 font-semibold text-lg ">
-        <a href="/" class="flex items-center gap-2    hover:text-main-blue icon-change">
+        <a href="/" class="flex items-center gap-2 hover:text-main-blue icon-change">
             <img src={{ asset('temp-icon.png') }} alt="nome" class="w-12 my-0 h-6 object-cover " />
             <h1 class="mt-1 text-xl ">Algarve</h1>
         </a>
@@ -18,15 +18,19 @@
 
         @auth
             <div class="relative">
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 hover:text-main-blue cursor-pointer" x-data
+                    x-on:click="$dispatch('handle-modal')">
                     <img src={{ Auth::user()->getImageUrl() }} alt="username"
                         class="w-10 aspect-square object-cover rounded-full" />
-                    <span class="hover:text-main-blue">{{ Auth::user()->display_name }}</span>
+                    <span class="">{{ Auth::user()->display_name }}</span>
                 </div>
-                {{-- <div
+
+
+                <div x-data="{ show: false }" x-show="show" x-on:handle-modal.window="show=!show"
+                    x-on:keydown.escape.window="show=false" x-on:click.outside="show=false"
                     class="absolute right-0 z-10 mt-[13px] w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div>
-                        <a href={{ route('users.show', Auth::user()) }}
+                    <nav>
+                        <a href={{ route('users.show', Auth::user()) }} x-on:click="show=false"
                             class="text-text-dark block px-4 pb-2 pt-3 rounded-t-md text-sm hover:bg-main-blue hover:text-white duration-150">
                             Profile
                         </a>
@@ -36,8 +40,10 @@
                             @method('post')
                             <button>Log out</button>
                         </form>
-                    </div> --}}
-            </div>
+                    </nav>
+                </div>
+
+
             </div>
         @endauth
 

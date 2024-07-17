@@ -8,24 +8,12 @@
 
 
         <div class="w-[48%] ">
-            @auth
-                @include('Components.post-form')
-            @endauth
-            @guest
-                <h3 class="text-2xl font-semibold">Log in to share your thoughts!</h3>
-            @endguest
-
-
-            <section class="mt-3">
-                @foreach ($posts as $post)
-                    @include('Components.post-card')
-                @endforeach
-            </section>
+            @livewire('posts', ['feed', 0])
         </div>
 
 
         <div class="w-[26%] ">
-            @include('Components.search-bar')
+            @livewire('search')
             @include('Components.who-to-follow')
         </div>
     </main>

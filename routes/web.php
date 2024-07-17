@@ -7,13 +7,15 @@ use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostsController::class, 'index'])->name('feed');
-Route::resource('posts', PostsController::class)->except('index');
+// Route::resource('posts', PostsController::class)->except('index');
 
 Route::post('/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 
 Route::get('/{user}/profile', [UsersController::class, 'show'])->middleware('auth')->name('users.show');
 Route::get('/{user}/edit', [UsersController::class, 'edit'])->name('users.edit');
 
+Route::post('/users/{user}/follow', [UsersController::class, 'follow'])->name('users.follow')->middleware('auth');
+Route::delete('/users/{user}/unfollow', [UsersController::class, 'unfollow'])->name('users.unfollow')->middleware('auth');
 
 Route::get('/login', function () {
     return view('Pages.login');

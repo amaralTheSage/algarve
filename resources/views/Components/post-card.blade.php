@@ -14,8 +14,25 @@
                 </a>
                 <div class="relative mb-7">
                     @if (Auth::id() === $post->user_id)
-                        <img src={{ asset('menu-icon.png') }} alt="" class="w-7 " />
-                        {{-- @include('Components.post-options') --}}
+                        {{-- DROPDOWN --}}
+                        <div x-data="{ open: false }">
+                            <img src={{ asset('menu-icon.png') }} alt="" class="w-6 cursor-pointer" x-data
+                                x-on:click="$dispatch('open-modal', {postId:{{ $post->id }}})" />
+
+                            <div x-show="open"
+                                x-on:open-modal.window="if($event.detail.postId === {{ $post->id }}) open=!open; console.log($event.detail.postId)"
+                                x-on:keydown.escape.window="open=false" x-on:click.outside="open=false"
+                                class="absolute right-0 z-10 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <div>
+                                    <div class="flex gap-1 px-4 py-2 text-sm duration-150 rounded-md cursor-pointer"
+                                        wire:click="deletePost({{ $post }}); open=false">
+                                        <img src="delete-icon.png" alt="Delete Post" class="w-5" />
+                                        <span>Delete Post</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{--  --}}
                     @endif
                 </div>
             </div>

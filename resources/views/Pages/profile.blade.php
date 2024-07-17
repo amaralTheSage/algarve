@@ -29,7 +29,7 @@
                     </p>
                 </div>
                 <div class="px-3 flex justify-between items-center mt-3">
-                    <div class="flex gap-4 items-center ">
+                    <div class="flex gap-4 items-center my-2">
                         <div class="flex gap-1 items-center text-sm">
                             <img src={{ asset('user-icon.png') }} alt="followers" class="w-5 h-5" />
                             <span>4 Followers</span>
@@ -39,19 +39,38 @@
                             <span>{{ $user->posts->count() }} Posts</span>
                         </div>
                     </div>
-                    <button class="text-white bg-main-blue px-5 py-[2px] rounded-md">
-                        Follow
-                    </button>
+
+                    @if (Auth::id() !== $user->id)
+
+
+                        @if (!Auth::user()->checkIfAlreadyFollows($user))
+                            <form action={{ route('users.follow', $user) }} method="post">
+                                @csrf
+                                @method('post')
+                                <button class="text-white bg-main-blue px-4 py-[4px] rounded-md">
+                                    Follow
+                                </button>
+                            </form>
+                        @else
+                            <form action={{ route('users.unfollow', $user) }} method="post">
+                                @csrf
+                                @method('post')
+                                <button class="text-white bg-[#a0a0a0] px-4 py-[4px] rounded-md">
+                                    Unfollow
+                                </button>
+                            </form>
+                        @endif
+                    @endif
+
+
+
                 </div>
             </div>
             @if ($user->posts->count() > 0)
                 <div class="my-4 bg-gray-200 w-full h-[3px]"></div>
             @endif
 
-            @foreach ($user->posts as $post)
-                @include('Components.post-card')
-            @endforeach
-
+            @livewire('posts', ['profile', Auth::id()])
         </div>
 
 

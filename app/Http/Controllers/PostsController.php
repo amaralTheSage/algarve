@@ -11,7 +11,7 @@ class PostsController extends Controller
 {
     public function index()
     {
-        return view('Pages.feed', ['posts' => Post::all()]);
+        return view('Pages.feed');
     }
 
     public function store(Request $request)

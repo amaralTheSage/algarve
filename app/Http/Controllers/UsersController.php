@@ -22,4 +22,22 @@ class UsersController extends Controller
 
         return view('Pages.edit-profile', ['user' => $user]);
     }
+
+    public function follow(User $user)
+    {
+        $follower = Auth::user();
+
+        $follower->following()->attach($user->id);
+
+        return to_route('users.show', $user);
+    }
+
+    public function unfollow(User $user)
+    {
+        $follower = Auth::user();
+
+        $follower->following()->detach($user->id);
+
+        return to_route('users.show', $user);
+    }
 }
