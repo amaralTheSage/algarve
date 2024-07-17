@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #f1fbff;
+    color: #1e1e1e;
+}
+
+.border-2 {
+    border-width: 2px;
+    border-color: #d0d0d0;
+}
+
+.icon-change:hover {
+    filter: invert(44%) sepia(39%) saturate(1808%) hue-rotate(208deg)
+        brightness(96%) contrast(99%);
+}
