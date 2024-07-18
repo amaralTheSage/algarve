@@ -6,7 +6,23 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [PostsController::class, 'index'])->name('feed');
+Route::get('/', function () {
+    return view('Pages.feed');
+})->name('feed');
+
+Route::get('/foryou', function () {
+    return view('Pages.foryou');
+})->name('foryou');
+
+Route::get('/terms', function () {
+    return view('Pages.terms');
+})->name('terms');
+
+Route::get('/settings', function () {
+    return view('Pages.settings');
+})->name('settings');
+
+
 // Route::resource('posts', PostsController::class)->except('index');
 
 Route::post('/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
@@ -19,11 +35,11 @@ Route::delete('/users/{user}/unfollow', [UsersController::class, 'unfollow'])->n
 
 Route::get('/login', function () {
     return view('Pages.login');
-})->middleware('guest');
+})->middleware('guest')->name('login');
 
 Route::get('/signup', function () {
     return view('Pages.sign-up');
-})->middleware('guest');
+})->middleware('guest')->name('signup');
 
 
 Route::post('/register', [AuthController::class, 'register'])->name('auth.register')->middleware('guest');

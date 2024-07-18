@@ -5,7 +5,9 @@
 @section('content')
     <main class="w-[85%] m-auto flex gap-6 justify-between mt-4">
 
-        @include('Components.nav-bar')
+        <section class="w-[26%] ">
+            @include('Components.who-to-follow')
+        </section>
 
         <div class="w-[48%] ">
             <div class="font-semibold px-4 py-4  rounded-md border-2 shadow-sm ">
@@ -18,8 +20,10 @@
                             <p class="text-[18px] text-text-light">{{ $user->username }}</p>
                         </div>
                     </div>
-                    <a href={{ route('users.edit', $user) }}><img src={{ asset('edit-icon.png') }} alt="edit profile"
-                            class="w-6 mb-12" /></a>
+                    @if (Auth::id() === $user->id)
+                        <a href={{ route('users.edit', $user) }}><img src={{ asset('edit-icon.png') }} alt="edit profile"
+                                class="w-6 mb-12" /></a>
+                    @endif
 
                 </div>
                 <div class="px-3 my-3">
@@ -54,7 +58,7 @@
                         @else
                             <form action={{ route('users.unfollow', $user) }} method="post">
                                 @csrf
-                                @method('post')
+                                @method('delete')
                                 <button class="text-white bg-[#a0a0a0] px-4 py-[4px] rounded-md">
                                     Unfollow
                                 </button>
@@ -70,14 +74,17 @@
                 <div class="my-4 bg-gray-200 w-full h-[3px]"></div>
             @endif
 
-            @livewire('posts', ['profile', Auth::id()])
+
+            @if (Auth::id() === $user->id)
+                @livewire('post-form')
+            @endif
+
+            @livewire('posts', ['profile', $user->id])
         </div>
 
 
         <div class="w-[26%] ">
-            @include('Components.search-bar')
-            @include('Components.who-to-follow')
-
+            @livewire('search')
         </div>
     </main>
 @endsection

@@ -1,4 +1,5 @@
- <div>@auth
+ <div>
+     @auth
          <form wire:submit="createPost" method="POST"
              class="rounded-md border-2 flex flex-col items-end px-3 pt-2 pb-3 shadow-sm">
              @csrf

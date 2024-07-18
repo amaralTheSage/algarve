@@ -8,11 +8,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Posts extends Component
 {
+    use WithPagination;
+    public $num_posts = 20;
+
     public $page = 'feed';
-    public $userId = 0;
+    public $userId;
 
     public function mount($page, $userId)
     {
@@ -29,25 +33,6 @@ class Posts extends Component
         Post::destroy($post->id);
     }
 
-    // public function deleteComment(Comment $comment)
-    // {
-    //     Gate::authorize('owner_or_admin', $comment);
-
-    //     Comment::destroy($comment->id);
-    // }
-
-    // public $comment_input;
-    // public function createComment($postId)
-    // {
-
-    //     if (!Auth::check()) {
-    //         abort(404);
-    //     }
-
-    //     $this->validate(['comment_input' => ['required', 'max:300']]);
-    //     Comment::create(['content' => $this->comment_input, 'user_id' => Auth::id(), 'post_id' => $postId]);
-    //     $this->comment_input = "";
-    // }
 
     public function likePost(Post $post)
     {
@@ -69,10 +54,19 @@ class Posts extends Component
     public function render()
     {
 
-        if ($this->page == 'profile') {
+        if ($this->page === 'profile') {
             return view('livewire.posts', ['posts' => Post::with(['user:id,username,display_name', 'comments'])->latest()->where('user_id', $this->userId)->get()]);
+        } elseif ($this->page === 'foryou') {
+            $users = Auth::user()->following()->pluck('followed_id');
+
+            return view('livewire.posts', ['posts' => Post::with('user', 'comments')->whereIn('user_id', $users)->latest()->get()]);
         }
 
         return  view('livewire.posts', ['posts' => Post::with(['user:id,username,display_name', 'comments'])->latest()->get()]);
+    }
+
+    public function morePosts()
+    {
+        $this->num_posts += 1;
     }
 }

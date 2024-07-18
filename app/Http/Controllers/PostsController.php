@@ -9,10 +9,7 @@ use Illuminate\Support\Facades\Gate;
 
 class PostsController extends Controller
 {
-    public function index()
-    {
-        return view('Pages.feed');
-    }
+
 
     public function store(Request $request)
     {

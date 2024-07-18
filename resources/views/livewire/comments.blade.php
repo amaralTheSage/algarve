@@ -43,7 +43,7 @@
                                     class="w-6 cursor-pointer icon-change"
                                     x-on:click="$dispatch('open-modal', {commentId:{{ $comment->id }}})" />
                                 <div x-show="open"
-                                    x-on:open-modal.window="if($event.detail.commentId === {{ $comment->id }}) open=!open;"
+                                    x-on:open-modal.window="console.log($event.detail.commentId, {{ $comment->id }}); if($event.detail.commentId === {{ $comment->id }}) open=!open;"
                                     x-on:keydown.escape.window="open=false" x-on:click.outside="open=false"
                                     class="absolute right-0 z-10 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 
@@ -65,27 +65,38 @@
                 </p>
                 <div class="flex justify-between px-1">
                     <div class="flex gap-1 items-center text-sm">
-                        @if (!Auth::user()->checkIfLikedComment($comment))
-                            <img src={{ asset('like-icon.png') }} alt=""
-                                class="w-5 h-5 cursor-pointer icon-change"
-                                wire:click="likeComment({{ $comment }})" />
-                            <span>{{ $comment->likes->count() }}</span>
-                        @else
-                            <img src={{ asset('liked-icon.png') }} alt=""
-                                class="w-5 h-5 cursor-pointer icon-change"
-                                wire:click="unlikeComment({{ $comment }})" />
-                            <span>{{ $comment->likes->count() }}</span>
-                        @endif
+
+                        @auth
+                            @if (!Auth::user()->checkIfLikedComment($comment))
+                                <img src={{ asset('like-icon.png') }} alt=""
+                                    class="w-5 h-5 cursor-pointer icon-change"
+                                    wire:click="likeComment({{ $comment }})" />
+                                <span>{{ $comment->likes->count() }}</span>
+                            @else
+                                <img src={{ asset('liked-icon.png') }} alt=""
+                                    class="w-5 h-5 cursor-pointer icon-change"
+                                    wire:click="unlikeComment({{ $comment }})" />
+                                <span>{{ $comment->likes->count() }}</span>
+                            @endif
+                        @endauth
+
+                        @guest
+                            <a href="{{ route('login') }}">
+                                <div class="flex gap-1 items-center">
+                                    <img src={{ asset('like-icon.png') }} alt=""
+                                        class="w-5 h-5 cursor-pointer icon-change" />
+                                    <span>{{ $comment->likes->count() }}</span>
+                                </div>
+                            </a>
+                        @endguest
+
                     </div>
 
 
                     <div class="flex gap-1 items-center text-sm">
                         <img src={{ asset('clock-icon.png') }} alt="" class="w-5 h-5 " />
                         <span>{{ $comment->created_at->diffForHumans() }}</span>
-
-
                     </div>
-
                 </div>
             </div>
         @endforeach

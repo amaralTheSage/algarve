@@ -1,5 +1,5 @@
 @extends('Layouts.layout')
-@section('title', 'Feed')
+@section('title', 'Settings')
 
 
 @section('content')
@@ -7,10 +7,9 @@
         @include('Components.nav-bar')
 
 
-        <div class="w-[48%] ">
-            @livewire('post-form')
-
-            @livewire('posts', ['feed', 0])
+        <div class="w-[48%] font-semibold ">
+            <h2 class="text-2xl ">Settings</h2>
+            <span class="">not yet implemented lol ;)</span>
         </div>
 
 

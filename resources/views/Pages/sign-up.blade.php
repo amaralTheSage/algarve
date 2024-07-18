@@ -6,7 +6,7 @@
 @section('content')
     <main>
         <form action={{ route('auth.register') }} method="POST"
-            class="m-auto w-fit flex flex-col py-8 px-8 items-end border bg-white shadow-md  rounded-sm mt-6">
+            class="m-auto w-fit flex flex-col py-6 px-8 items-end border bg-white shadow-md  rounded-sm mt-4">
             @csrf
             @method('post')
 
@@ -14,7 +14,7 @@
 
                 Register
             </h2>
-            <label htmlFor="username-input" class="font-semibold w-full mt-7">
+            <label htmlFor="username-input" class="font-semibold w-full mt-5">
                 Username
             </label>
             <input type="text" name="username-input" id="username-input" placeholder="amaralTheSage"
@@ -23,7 +23,7 @@
                 <p class="text-red-500 text-sm">{{ $message }}</p>
             @enderror
 
-            <label htmlFor="email-input" class="font-semibold w-full mt-7">
+            <label htmlFor="email-input" class="font-semibold w-full mt-5">
                 Email
             </label>
             <input type="text" name="email-input" placeholder="johndoe@gmail.com" id="email-input"
@@ -51,7 +51,7 @@
                 <p class="text-red-500 text-sm">{{ $message }}</p>
             @enderror
 
-            <button class="bg-main-blue text-white rounded-md w-[100px] mt-7 py-1 font-medium">
+            <button class="bg-main-blue text-white rounded-md w-[100px] mt-5 py-1 font-medium">
                 Sign Up
             </button>
             <a href="/login" class="w-full text-main-blue underline underline-offset-2 mt-5">

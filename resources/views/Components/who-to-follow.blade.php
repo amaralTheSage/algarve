@@ -1,4 +1,4 @@
-<section class="w-full border-2 mt-2 rounded-lg leading-tight shadow-sm">
+<section class="w-full border-2  rounded-lg leading-tight shadow-sm">
     <div class="bg-main-blue text-white rounded-t-md  font-semibold px-3 py-2">
         <h3>Who to Follow</h3>
         <p class="font-normal">Connect with other users</p>

@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title') | {{ config('app.name') }}</title>
+
     @vite('resources/css/app.css')
 </head>
 
@@ -48,9 +49,10 @@
         @endauth
 
         @guest
-            <nav class="text-md flex items-center gap-4">
-                <a href="/login" class="hover:text-main-blue ">Login</a>
-                <a href="/signup" class="hover:text-main-blue ">Sign Up</a>
+            <nav class="text-md flex items-center gap-4 ">
+                <a href="/login" class="hover:text-main-blue {{ Route::is('login') ? ' text-main-blue' : '' }}">Login</a>
+                <a href="/signup" class="hover:text-main-blue {{ Route::is('signup') ? ' text-main-blue' : '' }}">Sign
+                    Up</a>
             </nav>
         @endguest
 

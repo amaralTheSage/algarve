@@ -1,5 +1,5 @@
 @extends('Layouts.layout')
-@section('title', 'Feed')
+@section('title', 'For you')
 
 
 @section('content')
@@ -7,10 +7,10 @@
         @include('Components.nav-bar')
 
 
+
         <div class="w-[48%] ">
             @livewire('post-form')
-
-            @livewire('posts', ['feed', 0])
+            @livewire('posts', ['foryou', 0])
         </div>
 
 

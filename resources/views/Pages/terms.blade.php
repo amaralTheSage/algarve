@@ -1,5 +1,5 @@
 @extends('Layouts.layout')
-@section('title', 'Feed')
+@section('title', 'Terms')
 
 
 @section('content')
@@ -8,9 +8,10 @@
 
 
         <div class="w-[48%] ">
-            @livewire('post-form')
-
-            @livewire('posts', ['feed', 0])
+            <h2 class="text-2xl font-semibold ">Terms</h2>
+            <nl class="font-semibold underline underline-offset-2">
+                <li>Sem muita chinelage</li>
+            </nl>
         </div>
 
 
