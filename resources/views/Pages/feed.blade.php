@@ -7,11 +7,7 @@
         @include('Components.nav-bar')
 
 
-        <div class="w-[48%] ">
-            @livewire('post-form')
-
-            @livewire('posts', ['feed', 0])
-        </div>
+        <livewire:form-and-post-list page="feed" userId={{ Auth::id() }} />
 
 
         <div class="w-[26%] ">

@@ -13,7 +13,7 @@ use Livewire\Component;
 
 class Comments extends Component
 {
-    public $post;
+    public $post = 0;
 
     public function mount($post)
     {
@@ -49,8 +49,6 @@ class Comments extends Component
     public $comment_input;
     public function createComment($postId)
     {
-
-
         if (!Auth::check()) {
             abort(404);
         }
@@ -65,6 +63,6 @@ class Comments extends Component
     #[On('comments-updated')]
     public function render()
     {
-        return view('livewire.comments', ['comments' => Comment::latest()->where('post_id', $this->post->id)->get()]);
+        return view('livewire.comments', ['comments' => Comment::latest()->where('post_id', $this->post)->get()]);
     }
 }

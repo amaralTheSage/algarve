@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class PostForm extends Component
@@ -16,10 +17,11 @@ class PostForm extends Component
         }
 
         $this->validate(['post_input' => ['required', 'max:300']]);
+
         Post::create(['content' => $this->post_input, 'user_id' => Auth::id()]);
         $this->post_input = "";
 
-        $this->dispatch('post-created');
+        $this->dispatch('update_list');
     }
 
 

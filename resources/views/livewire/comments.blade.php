@@ -4,8 +4,8 @@
         @csrf
         @method('post')
 
-        <textarea wire:model="comment_input" rows={3} class="w-full focus:outline-none overflow-hidden resize-none bg-ice"
-            placeholder="Leave a comment"></textarea>
+        <textarea wire:model="comment_input" rows={3} name="comment_input"
+            class="w-full focus:outline-none overflow-hidden resize-none bg-ice" placeholder="Leave a comment"></textarea>
 
         <button type="submit" x-on:click="comment=false"
             class="text-white bg-main-blue rounded-md py-[6px] mt-1 w-20 text-sm font-medium ">
@@ -17,13 +17,10 @@
         <div class="my-4 bg-gray-200 w-full h-[3px]"></div>
     @endif
 
-
-
-
     {{-- COMMENTS --}}
     <div>
         @foreach ($post->comments as $comment)
-            <div class="w-[92%] m-auto my-5">
+            <div class="w-[92%] m-auto my-5" wire:key="{{ $comment->id }}">
                 <div class="flex  justify-between items-center">
                     <a href={{ route('users.show', [$comment->user]) }} class="w-full">
                         <div class="flex gap-3 items-center">

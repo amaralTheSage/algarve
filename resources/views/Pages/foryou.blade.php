@@ -7,7 +7,6 @@
         @include('Components.nav-bar')
 
 
-
         <div class="w-[48%] ">
             @livewire('post-form')
             @livewire('posts', ['foryou', 0])
