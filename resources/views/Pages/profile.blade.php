@@ -1,6 +1,6 @@
 @extends('Layouts.layout')
 
-@section('title', $user->username)
+@section('title', '@' . $user->username)
 
 @section('content')
     <main class="w-[85%] m-auto flex gap-6 justify-between mt-4">
@@ -17,26 +17,30 @@
                             class="w-24 aspect-square object-cover rounded-full" />
                         <div>
                             <p class="text-[20px]">{{ $user->display_name }}</p>
-                            <p class="text-[18px] text-text-light">{{ $user->username }}</p>
+                            <p class="text-[18px] text-text-light">&#64;{{ $user->username }}</p>
                         </div>
                     </div>
+
                     @if (Auth::id() === $user->id)
                         <a href={{ route('users.edit', $user) }}><img src={{ asset('edit-icon.png') }} alt="edit profile"
                                 class="w-6 mb-12" /></a>
                     @endif
 
                 </div>
-                <div class="px-3 my-3">
-                    <h2 class="text-lg">About:</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut?
-                    </p>
-                </div>
+                @if ($user->bio)
+                    <div class="px-3 my-3">
+                        <h2 class="text-lg">About:</h2>
+                        <p>
+                            {{ $user->bio }}
+                        </p>
+                    </div>
+                @endif
+
                 <div class="px-3 flex justify-between items-center mt-3">
                     <div class="flex gap-4 items-center my-2">
                         <div class="flex gap-1 items-center text-sm">
                             <img src={{ asset('user-icon.png') }} alt="followers" class="w-5 h-5" />
-                            <span>4 Followers</span>
+                            <span>{{ $user->followers->count() }} Followers</span>
                         </div>
                         <div class="flex gap-1 items-center text-sm">
                             <img src={{ asset('comment-icon.png') }} alt="posts" class="w-4 h-4" />
@@ -70,16 +74,11 @@
 
                 </div>
             </div>
-            @if ($user->posts->count() > 0)
+            @if ($user->posts->count() > 0 || $user->id == Auth::id())
                 <div class="my-4 bg-gray-200 w-full h-[3px]"></div>
             @endif
 
-
-            @if (Auth::id() === $user->id)
-                @livewire('post-form')
-            @endif
-
-            @livewire('posts', ['profile', $user->id])
+            <livewire:form-and-post-list page="profile" userId="{{ $user->id }}" />
         </div>
 
 

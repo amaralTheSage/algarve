@@ -1,10 +1,12 @@
-<section class="w-[48%]">
-    <livewire:post-form>
+<div>
+    @if ($userId == Auth::id())
+        <livewire:post-form>
+    @endif
 
 
-        <div>
-            @foreach ($posts as $post)
-                <livewire:post :$post :key="$post->id">
-            @endforeach
-        </div>
-</section>
+    <div>
+        @foreach ($posts as $post)
+            <livewire:post :$post :key="$post->id">
+        @endforeach
+    </div>
+</div>

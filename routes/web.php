@@ -23,12 +23,13 @@ Route::get('/settings', function () {
 })->name('settings');
 
 
-// Route::resource('posts', PostsController::class)->except('index');
+Route::resource('posts', PostsController::class)->only('show');
 
 Route::post('/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 
-Route::get('/{user}/profile', [UsersController::class, 'show'])->middleware('auth')->name('users.show');
-Route::get('/{user}/edit', [UsersController::class, 'edit'])->name('users.edit');
+Route::get('/users/{user}', [UsersController::class, 'show'])->middleware('auth')->name('users.show');
+Route::get('/users/{user}/edit', [UsersController::class, 'edit'])->name('users.edit');
+Route::patch('/users/{user}', [UsersController::class, 'update'])->name('users.update');
 
 Route::post('/users/{user}/follow', [UsersController::class, 'follow'])->name('users.follow')->middleware('auth');
 Route::delete('/users/{user}/unfollow', [UsersController::class, 'unfollow'])->name('users.unfollow')->middleware('auth');

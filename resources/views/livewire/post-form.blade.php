@@ -7,7 +7,7 @@
 
 
              <textarea wire:model="post_input" rows={3} name="post_input" id="post_input"
-                 class="w-full focus:outline-none overflow-hidden resize-none bg-ice" placeholder="What are you thinking about?"></textarea>
+                 class="w-full focus:outline-none overflow-hidden resize-none bg-ice " placeholder="What are you thinking about?"></textarea>
 
              <button type="submit" class="text-white bg-main-blue rounded-md py-1 mt-1 w-20 text-sm font-medium ">
                  Post

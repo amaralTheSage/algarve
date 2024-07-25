@@ -1,9 +1,6 @@
 @props(['post'])
 <div class="font-semibold px-4 py-4 my-3 rounded-md border-2 shadow-sm" x-data="{ comment: false, postId: {{ $post->id }} };">
 
-    {{ $post->id }}
-
-
     <div class="flex w-full justify-between items-center">
         <a href="{{ route('users.show', $post->user) }}" class="w-full">
             <div class="flex gap-3 items-center">

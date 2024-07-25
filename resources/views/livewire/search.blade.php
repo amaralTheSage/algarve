@@ -19,7 +19,7 @@
                                 class="w-10 aspect-square object-cover rounded-full" />
                             <div>
                                 <p class="text-[14px]">{{ $user->display_name }}</p>
-                                <p class="text-[12px] text-text-light">{{ $user->username }}</p>
+                                <p class="text-[12px] text-text-light">&#64;{{ $user->username }}</p>
                             </div>
                         </div>
                     </div>

@@ -6,7 +6,7 @@
                     class="w-12 aspect-square object-cover rounded-full" />
                 <div>
                     <p class="text-[16px]">{{ $comment->user->display_name }}</p>
-                    <p class="text-[14px] text-text-light">{{ $comment->user->username }}</p>
+                    <p class="text-[14px] text-text-light">&#64;{{ $comment->user->username }}</p>
                 </div>
             </div>
         </a>

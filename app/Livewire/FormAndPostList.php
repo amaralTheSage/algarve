@@ -31,13 +31,13 @@ class FormAndPostList extends Component
     public function render()
     {
         if ($this->page === 'profile') {
-            return view('livewire.posts', ['posts' => Post::with(['user', 'comments'])->latest()->where('user_id', $this->userId)->get()]);
+            return view('livewire.form-and-post-list', ['posts' => Post::with(['user', 'comments'])->where('user_id', $this->userId)->latest()->get(), 'userId' => $this->userId]);
         } elseif ($this->page === 'foryou') {
-            $users = Auth::user()->following()->pluck('followed_id');
 
-            return view('livewire.posts', ['posts' => Post::with('user', 'comments')->whereIn('user_id', [...$users, Auth::id()])->latest()->get()]);
+            $users = Auth::user()->following()->pluck('followed_id');
+            return view('livewire.form-and-post-list', ['posts' => Post::with(['user', 'comments'])->whereIn('user_id', [...$users, Auth::id()])->latest()->get(), 'userId' => Auth::id()]);
         }
 
-        return  view('livewire.form-and-post-list', ['posts' => Post::with(['user', 'comments'])->latest()->get()]);
+        return  view('livewire.form-and-post-list', ['posts' => Post::with(['user', 'comments'])->latest()->get(), 'userId' => $this->userId]);
     }
 }

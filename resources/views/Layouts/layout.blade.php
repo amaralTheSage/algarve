@@ -9,6 +9,7 @@
     @vite('resources/css/app.css')
 </head>
 
+
 <body>
     <header class="flex justify-between mx-10 py-3 px-10 border-b-2 font-semibold text-lg ">
         <a href="/" class="flex items-center gap-2 hover:text-main-blue icon-change">
@@ -18,7 +19,7 @@
 
 
         @auth
-            <div class="relative">
+            <div class="relative" x-data="{ show: false }">
                 <div class="flex items-center gap-2 hover:text-main-blue cursor-pointer" x-data
                     x-on:click="$dispatch('handle-modal')">
                     <img src={{ Auth::user()->getImageUrl() }} alt="username"
@@ -27,8 +28,8 @@
                 </div>
 
 
-                <div x-data="{ show: false }" x-show="show" x-on:handle-modal.window="show=!show"
-                    x-on:keydown.escape.window="show=false" x-on:click.outside="show=false"
+                <div x-show="show" x-on:handle-modal.window="show=!show" x-on:keydown.escape.window="show=false"
+                    x-on:click.outside="show=false"
                     class="absolute right-0 z-10 mt-[13px] w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <nav>
                         <a href={{ route('users.show', Auth::user()) }} x-on:click="show=false"

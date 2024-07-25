@@ -31,14 +31,18 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validated = $request->validate([
-            'username-input' => ['required', 'unique:users,username', 'min:6'],
+            'username-input' => ['required', 'unique:users,username', 'min:6', 'alpha_dash', 'max:25'],
             'email-input' => ['required', 'email', 'unique:users,email'],
             'password-input' => ['required', 'min:6', 'confirmed']
         ]);
 
+        if ($validated['username-input'][0] === '@') {
+            $validated['username-input'] = substr($validated['username-input'], 1);
+        }
+
         $user = User::create([
             'display_name' => $validated['username-input'],
-            'username' => '@' . $validated['username-input'],
+            'username' =>  $validated['username-input'],
             'email' => $validated['email-input'],
             'password' => $validated['password-input']
         ]);
