@@ -25,7 +25,7 @@
                                 <p class="text-red-500 text-sm">{{ $message }}</p>
                             @enderror
                             <div class="flex items-center">
-                                <span class="text-2xl ">@</span>
+                                <span class="text-2xl">@</span>
                                 <input
                                     class="focus:outline-none h-10 overflow-hidden bg-ice p-2 text-[18px] border rounded-md w-[300px]"
                                     value="{{ $user->username }}" name="username-input" />

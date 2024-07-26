@@ -5,9 +5,7 @@
 @section('content')
     <main class="w-[85%] m-auto flex gap-6 justify-between mt-4">
 
-        <section class="w-[26%] ">
-            @include('Components.who-to-follow')
-        </section>
+        @include('Components.nav-bar')
 
         <div class="w-[48%] ">
             <div class="font-semibold px-4 py-4  rounded-md border-2 shadow-sm ">
@@ -84,6 +82,7 @@
 
         <div class="w-[26%] ">
             @livewire('search')
+            @include('Components.who-to-follow')
         </div>
     </main>
 @endsection

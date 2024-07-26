@@ -4,15 +4,19 @@
         <p class="font-normal">Connect with other users</p>
     </div>
 
-    <div class="font-semibold px-4 py-3 flex justify-between items-center">
-        <div class="flex gap-3 items-center">
-            <img src="https://www.thesun.co.uk/wp-content/uploads/2022/02/NINTCHDBPICT000750971185.jpg?strip=all&w=692"
-                alt="username" class="w-10 aspect-square object-cover rounded-full" />
-            <div>
-                <p class="text-[14px]">Display Name</p>
-                <p class="text-[12px] text-text-light">@username</p>
+    <div>
+        @foreach ($who_to_follow as $user)
+            <div class="font-semibold px-4 py-3 flex justify-between items-center">
+                <div class="flex gap-3 items-center">
+                    <img src={{ $user->getImageURL() }} alt="{{ $user->username }}'s profile image"
+                        class="w-10 aspect-square object-cover rounded-full" />
+                    <div>
+                        <p class="text-[14px]">{{ $user->display_name }}</p>
+                        <p class="text-[12px] text-text-light">&#64;{{ $user->username }}</p>
+                    </div>
+                </div>
+                <img src={{ asset('plus-icon.png') }} alt="" class="w-4" />
             </div>
-        </div>
-        <img src={{ asset('plus-icon.png') }} alt="" class="w-4" />
+        @endforeach
     </div>
 </section>

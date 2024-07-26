@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,11 +22,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        View::share('who_to_follow', User::all());
+
         Gate::define('admin', function (User $user, $post) {
             return $user->is_admin;
         });
 
-        Gate::define('owner', function (User $user,  $post) {
+        Gate::define('owner', function (User $user, $post) {
             return $user->id === $post->user_id;
         });
 

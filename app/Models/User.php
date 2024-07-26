@@ -22,11 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'image',
-        'bio'
+        'bio',
     ];
-
-
-
 
     public function posts()
     {
@@ -52,6 +49,7 @@ class User extends Authenticatable
     {
         return $this->following()->where('followed_id', $user->id)->exists();
     }
+
     public function liked()
     {
         return $this->belongsToMany(Post::class)->withTimestamps();
@@ -75,11 +73,12 @@ class User extends Authenticatable
     public function getImageURL()
     {
         if ($this->image) {
-            return url('storage/' . $this->image);
+            return url('storage/'.$this->image);
         }
 
         return "https://api.dicebear.com/9.x/micah/svg?seed={$this->username}";
     }
+
     /**
      * The attributes that should be hidden for serialization.
      *

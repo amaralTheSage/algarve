@@ -15,10 +15,9 @@ class UsersController extends Controller
         return view('Pages.profile', ['user' => $user]);
     }
 
-
     public function edit(User $user)
     {
-        if (!$user->id === Auth::id()) {
+        if (! $user->id === Auth::id()) {
             abort(403);
         }
 
@@ -35,24 +34,22 @@ class UsersController extends Controller
             'display_name-input' => ['min:3', 'max:50', 'nullable'],
             'username-input' => [Rule::unique('users', 'username')->ignore($user->id, 'id'), 'max:25', 'alpha_dash', 'nullable'],
             'image-input' => ['image', 'nullable'],
-            'bio-input' => ['max:300', 'nullable']
+            'bio-input' => ['max:300', 'nullable'],
         ]);
-
 
         if ($request->has('image-input')) {
             $imagePath = $request->file('image-input')->store('profile', 'public');
             $validated['image-input'] = $imagePath;
 
-            !is_null($user->image) && Storage::disk('public')->delete($user->image);
+            ! is_null($user->image) && Storage::disk('public')->delete($user->image);
         }
 
         $user->update([
-            'username' =>  $validated['username-input'],
+            'username' => $validated['username-input'],
             'display_name' => $validated['display_name-input'],
             'image' => ($validated['image-input'] ?? $user->image),
-            'bio' => $validated['bio-input']
+            'bio' => $validated['bio-input'],
         ]);
-
 
         return to_route('users.show', $user);
     }

@@ -19,10 +19,9 @@ class Post extends Component
         $this->dispatch('update_list');
     }
 
-
     public function likePost()
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             abort(404);
         }
         $this->post->likes()->attach(Auth::id());
@@ -30,12 +29,11 @@ class Post extends Component
 
     public function unlikePost()
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             abort(404);
         }
         $this->post->likes()->detach(Auth::id());
     }
-
 
     public function render()
     {

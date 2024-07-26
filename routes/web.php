@@ -22,7 +22,6 @@ Route::get('/settings', function () {
     return view('Pages.settings');
 })->name('settings');
 
-
 Route::resource('posts', PostsController::class)->only('show');
 
 Route::post('/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
@@ -41,7 +40,6 @@ Route::get('/login', function () {
 Route::get('/signup', function () {
     return view('Pages.sign-up');
 })->middleware('guest')->name('signup');
-
 
 Route::post('/register', [AuthController::class, 'register'])->name('auth.register')->middleware('guest');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('auth.authenticate')->middleware('guest');

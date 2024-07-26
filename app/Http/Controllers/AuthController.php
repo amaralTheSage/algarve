@@ -15,7 +15,7 @@ class AuthController extends Controller
         $authenticated = Auth::attempt(
             [
                 'email' => $validated['email-input'],
-                'password' => $validated['password-input']
+                'password' => $validated['password-input'],
             ]
         );
 
@@ -33,7 +33,7 @@ class AuthController extends Controller
         $validated = $request->validate([
             'username-input' => ['required', 'unique:users,username', 'min:6', 'alpha_dash', 'max:25'],
             'email-input' => ['required', 'email', 'unique:users,email'],
-            'password-input' => ['required', 'min:6', 'confirmed']
+            'password-input' => ['required', 'min:6', 'confirmed'],
         ]);
 
         if ($validated['username-input'][0] === '@') {
@@ -42,15 +42,15 @@ class AuthController extends Controller
 
         $user = User::create([
             'display_name' => $validated['username-input'],
-            'username' =>  $validated['username-input'],
+            'username' => $validated['username-input'],
             'email' => $validated['email-input'],
-            'password' => $validated['password-input']
+            'password' => $validated['password-input'],
         ]);
 
         Auth::login($user);
+
         return to_route('feed');
     }
-
 
     public function logout(Request $request)
     {

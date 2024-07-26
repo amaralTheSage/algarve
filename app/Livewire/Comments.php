@@ -2,10 +2,7 @@
 
 namespace App\Livewire;
 
-
-
 use App\Models\Comment;
-use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\On;
@@ -20,10 +17,9 @@ class Comments extends Component
         $this->post = $post;
     }
 
-
     public function likeComment(Comment $comment)
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             abort(404);
         }
         $comment->likes()->attach(Auth::id());
@@ -31,12 +27,11 @@ class Comments extends Component
 
     public function unlikeComment(Comment $comment)
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             abort(404);
         }
         $comment->likes()->detach(Auth::id());
     }
-
 
     public function deleteComment(Comment $comment)
     {
@@ -47,15 +42,16 @@ class Comments extends Component
     }
 
     public $comment_input;
+
     public function createComment($postId)
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             abort(404);
         }
 
         $this->validate(['comment_input' => ['required', 'max:300']]);
         Comment::create(['content' => $this->comment_input, 'user_id' => Auth::id(), 'post_id' => $postId]);
-        $this->comment_input = "";
+        $this->comment_input = '';
 
         $this->dispatch('comments-updated');
     }

@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Gate;
 
 class PostsController extends Controller
 {
-
-
     public function store(Request $request)
     {
         $validated = $request->validate(['content-input' => ['required', 'max:300']]);
