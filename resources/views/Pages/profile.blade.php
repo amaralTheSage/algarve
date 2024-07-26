@@ -76,6 +76,11 @@
                 <div class="my-4 bg-gray-200 w-full h-[3px]"></div>
             @endif
 
+            @if ($user->posts->count() === 0)
+                <h2 class="p-3 font-medium text-lg">{{ $user->username }} hasn't shared anything yet :(
+                </h2>
+            @endif
+
             <livewire:form-and-post-list page="profile" userId="{{ $user->id }}" />
         </div>
 

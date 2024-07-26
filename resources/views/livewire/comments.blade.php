@@ -13,6 +13,7 @@
         </button>
     </form>
 
+    
     @if ($post->comments->count() > 0)
         <div class="my-4 bg-gray-200 w-full h-[3px]"></div>
     @endif

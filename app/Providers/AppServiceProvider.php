@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -22,7 +23,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::share('who_to_follow', User::all());
+
+        View::composer('*', function ($view) {
+            if (Auth::check()) {
+                $followedByUser = Auth::user()->following()->pluck('followed_id');
+                $followedByUser = [...$followedByUser, Auth::id()];
+                $view->with('who_to_follow', User::whereNotIn('id', $followedByUser)->inRandomOrder()->paginate(5));
+            } else {
+                $view->with('who_to_follow', User::inRandomOrder()->paginate(5));  // REMEMBER TO CHANGE
+            }
+        });
+
+
 
         Gate::define('admin', function (User $user, $post) {
             return $user->is_admin;

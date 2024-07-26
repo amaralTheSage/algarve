@@ -12,14 +12,14 @@
                 @method('patch')
                 @csrf
 
-                <div class="flex w-full justify-between items-center">
-                    <div class="flex justify-between w-full items-center mx-3">
+                <div class="flex w-full justify items-center">
+                    <div class="flex  w-full items-center mx-3">
                         <img src={{ $user->getImageUrl() }} alt="{{ $user->username }}'s image"
                             class="w-24 aspect-square object-cover rounded-full mr-8" />
 
                         <div class="text-text-light w-min">
                             <input
-                                class="focus:outline-none overflow-hidden bg-ice p-2 text-[20px] border rounded-md mb-2 w-[300px] h-10"
+                                class="focus:outline-none overflow-hidden bg-ice p-2 text-[20px] border-b-2  mb-2 w-[300px] h-10"
                                 value="{{ $user->display_name }}" name="display_name-input" />
                             @error('display_name-input')
                                 <p class="text-red-500 text-sm">{{ $message }}</p>
@@ -27,7 +27,7 @@
                             <div class="flex items-center">
                                 <span class="text-2xl">@</span>
                                 <input
-                                    class="focus:outline-none h-10 overflow-hidden bg-ice p-2 text-[18px] border rounded-md w-[300px]"
+                                    class="focus:outline-none h-10 overflow-hidden bg-ice p-2 text-[18px] border-b-2 w-[278px]"
                                     value="{{ $user->username }}" name="username-input" />
                             </div>
                             @error('username-input')
