@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Post as ModelsPost;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Post extends Component
@@ -13,7 +14,7 @@ class Post extends Component
 
     public function deletePost()
     {
-        Gate::authorize('owner_or_admin', $this->post);
+        Gate::authorize('post_owner_or_admin', $this->post);
 
         ModelsPost::destroy($this->post->id);
         $this->dispatch('update_list');
@@ -21,7 +22,7 @@ class Post extends Component
 
     public function likePost()
     {
-        if (! Auth::check()) {
+        if (!Auth::check()) {
             abort(404);
         }
         $this->post->likes()->attach(Auth::id());
@@ -29,14 +30,15 @@ class Post extends Component
 
     public function unlikePost()
     {
-        if (! Auth::check()) {
+        if (!Auth::check()) {
             abort(404);
         }
         $this->post->likes()->detach(Auth::id());
     }
 
+    #[On('comments-updated')]
     public function render()
     {
-        return view('livewire.post', []);
+        return view('livewire.post');
     }
 }

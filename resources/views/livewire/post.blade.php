@@ -4,7 +4,7 @@
     <div class="flex w-full justify-between items-center">
         <a href="{{ route('users.show', $post->user) }}" class="w-full">
             <div class="flex gap-3 items-center">
-                <img src="{{ $post->user->getImageUrl() }}" alt="username"
+                <img src="{{ $post->user->getImageURL() }}" alt="username"
                     class="w-14 aspect-square object-cover rounded-full" />
                 <div>
                     <p class="text-[18px]">{{ $post->user->display_name }}</p>
@@ -14,9 +14,8 @@
         </a>
 
         <div class="relative mb-7">
-            @if (Auth::id() === $post->user_id)
-                <div x-data="{ open: false }"
-                    x-on:open-modal.window="if ($event.detail.postId === postId) { open = !open }">
+            @can('post_owner_or_admin', $post)
+                <div x-data="{ open: false }" x-on:open-modal.window="if ($event.detail.postId === postId) { open = !open }">
                     <img src="{{ asset('menu-icon.png') }}" alt="" class="w-6 cursor-pointer"
                         x-on:click="$dispatch('open-modal', { postId: postId })" />
                     <div x-show="open" x-on:keydown.escape.window="open = false" x-on:click.outside="open = false"
@@ -30,7 +29,7 @@
 
                     </div>
                 </div>
-            @endif
+            @endcan
         </div>
     </div>
 
@@ -83,5 +82,5 @@
             <span>{{ $post->created_at->diffForHumans() }}</span>
         </div>
     </div>
-    @livewire('comments', [$post], key($post->id))
+    <livewire:comments :postId="$post->id" :key="$post->id" />
 </div>

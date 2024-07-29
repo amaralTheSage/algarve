@@ -10,7 +10,7 @@ class AuthController extends Controller
 {
     public function authenticate(Request $request)
     {
-        $validated = $request->validate(['email-input' => ['required', 'email'], 'password-input' => ['required']]);
+        $validated = $request->validate(['email-input' => ['required'], 'password-input' => ['required']]);
 
         $authenticated = Auth::attempt(
             [

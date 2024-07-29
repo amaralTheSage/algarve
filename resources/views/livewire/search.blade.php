@@ -1,12 +1,12 @@
 <section class="relative mb-2">
-    <h2 class="font-semibold text-lg">Find your friends</h2>
-    <div class="flex justify-between border-2 rounded-md py-1 px-2 h-8  text-sm font-medium w-full">
-        <input type="text" name="search" wire:model.live.debounce.400ms="search"
-            class="bg-ice focus:outline-none w-full" placeholder="Search by @username" />
-        <img src={{ asset('search-icon.png') }} alt="">
-        {{-- <button class="bg-main-blue rounded-md text-sm font-medium h-8 px-4 text-white ">
-            Search
-        </button> --}}
+    <div class="grid grid-cols-2 my-4 md:block items-center">
+        <h2 class="font-semibold text-lg w-fit">Find your friends</h2>
+        <div class="flex justify-between border-2 rounded-md py-1 px-2  h-8  text-sm font-medium w-full">
+            <input type="text" name="search" wire:model.live.debounce.200ms="search"
+                class="bg-ice focus:outline-none w-full " placeholder="Search by @username" />
+            <img src={{ asset('search-icon.png') }} alt="">
+
+        </div>
     </div>
 
     @if ($search)
@@ -15,7 +15,7 @@
                 <a href="{{ route('users.show', $user) }}">
                     <div class="font-semibold px-4 py-3 flex justify-between items-center">
                         <div class="flex gap-3 items-center">
-                            <img src={{ $user->getImageUrl() }} alt="username"
+                            <img src={{ $user->getImageURL() }} alt="username"
                                 class="w-10 aspect-square object-cover rounded-full" />
                             <div>
                                 <p class="text-[14px]">{{ $user->display_name }}</p>
@@ -25,6 +25,10 @@
                     </div>
                 </a>
             @endforeach
+
+            @if ($users->count() === 0)
+                <p class="font-semibold px-4 py-3">no users found :(</p>
+            @endif
         </div>
     @endif
 

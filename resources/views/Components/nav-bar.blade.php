@@ -1,4 +1,4 @@
-<nav class="rounded-md border-2 py-4  w-[26%] h-min shadow-sm text-text-dark">
+<nav class="rounded-md border-2 py-4 md:w-[26%] h-min shadow-sm text-text-dark hidden md:block">
     <div class="{{ Route::is('feed') ? 'bg-main-blue text-white' : '' }} px-4 py-1">
         <a href="{{ route('feed') }}" class="w-full ">
             <p class="text-base font-semibold">Feed</p>

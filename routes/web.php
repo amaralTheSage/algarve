@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\UsersController;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,7 +14,7 @@ Route::get('/', function () {
 
 Route::get('/foryou', function () {
     return view('Pages.foryou');
-})->name('foryou');
+})->name('foryou')->middleware('auth');
 
 Route::get('/terms', function () {
     return view('Pages.terms');
@@ -44,3 +46,14 @@ Route::get('/signup', function () {
 Route::post('/register', [AuthController::class, 'register'])->name('auth.register')->middleware('guest');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('auth.authenticate')->middleware('guest');
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware('auth');
+
+Route::get('/users/{user}/kill', function (User $user) {
+
+    if (Gate::authorize('user_or_admin', $user)) {
+        return view('Pages.delete-user', ['user' => $user]);
+    }
+
+    abort(403);
+})->name('users.delete');
+
+Route::delete('/users/{user}', [UsersController::class, 'destroy'])->name('users.destroy');

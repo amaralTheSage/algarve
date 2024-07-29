@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -34,18 +35,16 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-
-
-        Gate::define('admin', function (User $user, $post) {
+        Gate::define('admin', function (User $user) {
             return $user->is_admin;
         });
 
-        Gate::define('owner', function (User $user, $post) {
-            return $user->id === $post->user_id;
+        Gate::define('post_owner_or_admin', function (User $user, Post $post) {
+            return $user->id === $post->user_id || $user->is_admin;
         });
 
-        Gate::define('owner_or_admin', function (User $user, $post) {
-            return $user->id === $post->user_id || $user->is_admin;
+        Gate::define('user_or_admin', function (User $authed, User $user) {
+            return $authed->id === $user->id || $authed->is_admin;
         });
     }
 }

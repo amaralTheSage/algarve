@@ -7,19 +7,33 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Comments extends Component
 {
-    public $post = 0;
+    public $postId = 0;
 
-    public function mount($post)
+
+    use WithPagination;
+
+    public $num_comments = 5;
+
+    public function moreComments()
     {
-        $this->post = $post;
+        $this->num_comments += 5;
     }
+
+    public function mount($postId)
+    {
+        $this->postId = $postId;
+    }
+
+
+
 
     public function likeComment(Comment $comment)
     {
-        if (! Auth::check()) {
+        if (!Auth::check()) {
             abort(404);
         }
         $comment->likes()->attach(Auth::id());
@@ -27,7 +41,7 @@ class Comments extends Component
 
     public function unlikeComment(Comment $comment)
     {
-        if (! Auth::check()) {
+        if (!Auth::check()) {
             abort(404);
         }
         $comment->likes()->detach(Auth::id());
@@ -45,7 +59,7 @@ class Comments extends Component
 
     public function createComment($postId)
     {
-        if (! Auth::check()) {
+        if (!Auth::check()) {
             abort(404);
         }
 
@@ -59,6 +73,6 @@ class Comments extends Component
     #[On('comments-updated')]
     public function render()
     {
-        return view('livewire.comments', ['comments' => Comment::latest()->where('post_id', $this->post)->get()]);
+        return view('livewire.comments', ['comments' => Comment::latest()->where('post_id', $this->postId)->paginate($this->num_comments)]);
     }
 }

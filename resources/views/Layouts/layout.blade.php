@@ -13,10 +13,11 @@
 
 
 <body>
-    <header class="flex justify-between mx-10 py-3 px-10 border-b-2 font-semibold text-lg ">
+    <header
+        class="flex {{ Auth::check() ? '' : 'flex-col' }} md:flex-row items-center gap-3 justify-between mx-10 py-3 px-10 border-b-2 font-semibold text-lg ">
         <a href="/" class="flex items-center gap-2 hover:text-main-blue icon-change">
-            <img src={{ asset('temp-icon.png') }} alt="nome" class="w-12 my-0 h-6 object-cover " />
-            <h1 class="mt-1 text-xl ">Algarve</h1>
+            <img src={{ asset('temp-icon.png') }} alt="nome" class=" w-8 sm:w-12 my-0 h-6 object-cover " />
+            <h1 class="mt-1 text-lg sm:text-xl ">Algarve</h1>
         </a>
 
 
@@ -24,9 +25,9 @@
             <div class="relative" x-data="{ show: false }">
                 <div class="flex items-center gap-2 hover:text-main-blue cursor-pointer" x-data
                     x-on:click="$dispatch('handle-modal')">
-                    <img src={{ Auth::user()->getImageUrl() }} alt="username"
+                    <img src={{ Auth::user()->getImageURL() }} alt="username"
                         class="w-10 aspect-square object-cover rounded-full" />
-                    <span class="">{{ Auth::user()->display_name }}</span>
+                    <span class="hidden md:block">{{ Auth::user()->display_name }}</span>
                 </div>
 
 

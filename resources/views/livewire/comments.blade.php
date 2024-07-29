@@ -1,5 +1,5 @@
 <div>
-    <form x-show="comment" wire:submit="createComment({{ $post->id }})" method="POST"
+    <form x-show="comment" wire:submit="createComment({{ $postId }})" method="POST"
         class="rounded-md border-2 flex flex-col items-end px-3 pt-2 mt-3 pb-3 shadow-sm">
         @csrf
         @method('post')
@@ -13,19 +13,20 @@
         </button>
     </form>
 
-    
-    @if ($post->comments->count() > 0)
+
+
+    @if ($comments->count() > 0)
         <div class="my-4 bg-gray-200 w-full h-[3px]"></div>
     @endif
 
     {{-- COMMENTS --}}
     <div>
-        @foreach ($post->comments as $comment)
+        @foreach ($comments as $comment)
             <div class="w-[92%] m-auto my-5" wire:key="{{ $comment->id }}">
                 <div class="flex  justify-between items-center">
                     <a href={{ route('users.show', [$comment->user]) }} class="w-full">
                         <div class="flex gap-3 items-center">
-                            <img src={{ $comment->user->getImageUrl() }} alt="username"
+                            <img src={{ $comment->user->getImageURL() }} alt="username"
                                 class="w-12 aspect-square object-cover rounded-full" />
                             <div>
                                 <p class="text-[16px]">{{ $comment->user->display_name }}</p>
@@ -98,5 +99,13 @@
                 </div>
             </div>
         @endforeach
+        @if ($comments->count() % 5 === 0 && $comments->count() !== 0)
+            <div class="flex w-full justify-center mt-2">
+                <button class="p-1 px-4 bg-main-blue text-white font-semibold rounded-md"
+                    wire:click='moreComments()'>Load
+                    More</button>
+            </div>
+        @endif
+
     </div>
 </div>

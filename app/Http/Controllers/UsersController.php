@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
@@ -17,7 +18,7 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
-        if (! $user->id === Auth::id()) {
+        if ($user->id !== Auth::id()) {
             abort(403);
         }
 
@@ -54,8 +55,21 @@ class UsersController extends Controller
         return to_route('users.show', $user);
     }
 
+    public function destroy(User $user)
+    {
+        Gate::authorize('user_or_admin', $user);
+
+        User::destroy($user->id);
+
+        return to_route('feed');
+    }
+
     public function follow(User $user)
     {
+        if (Auth::id() === $user->id) {
+            abort(403);
+        }
+
         $follower = Auth::user();
 
         $follower->following()->attach($user->id);
@@ -65,6 +79,10 @@ class UsersController extends Controller
 
     public function unfollow(User $user)
     {
+        if (Auth::id() === $user->id) {
+            abort(403);
+        }
+
         $follower = Auth::user();
 
         $follower->following()->detach($user->id);
