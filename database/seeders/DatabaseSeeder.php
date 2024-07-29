@@ -6,6 +6,8 @@ use App\Models\Post;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,7 +16,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-        Post::factory(10)->create();
+        User::create([
+            'display_name' => 'amaralTheSage',
+            'username' => 'amaralTheSage',
+            'email' => 'amaraldesouza9@gmail.com',
+            'password' => 'topodopicodotrovao',
+            'is_admin' => 1
+        ]);
     }
 }

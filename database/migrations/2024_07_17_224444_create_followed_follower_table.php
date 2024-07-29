@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('followed_follower', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('followed_id')->constrained('users', 'id')->cascadeOnDelete();
-            $table->foreignId('follower_id')->constrained('users', 'id')->cascadeOnDelete();
+            $table->foreignUuid('followed_id')->constrained('users', 'id')->cascadeOnDelete();
+            $table->foreignUuid('follower_id')->constrained('users', 'id')->cascadeOnDelete();
             $table->timestamps();
         });
     }

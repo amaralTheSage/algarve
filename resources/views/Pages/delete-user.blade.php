@@ -14,7 +14,7 @@
 
 <body class="bg-white">
     <main class="lg:w-1/3 md:w-1/2 mx-4 md:m-auto shadow-lg h-screen px-16 py-7 bg-[#e2e8ea]">
-        <h1 class="text-xl m-auto w-fit mb-5">Are you sure you want to ban this user?</h1>
+        <h1 class="text-xl m-auto w-fit mb-5">Are you sure you want to kill this account?</h1>
         <div class="flex flex-col items-center gap-5">
             <img src="{{ $user->getImageURL() }}" alt="" class="rounded-full w-60">
             <h2 class="text-2xl font-semibold">&#64;{{ $user->username }}</h2>
@@ -42,7 +42,7 @@
                 @method('DELETE')
                 @csrf
 
-                <button class="rounded-md bg-red-600 py-3 w-[120px] text-center">Ban</button>
+                <button class="rounded-md bg-red-600 py-3 w-[120px] text-center">Kill</button>
             </form>
         </nav>
     </main>

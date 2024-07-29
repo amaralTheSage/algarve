@@ -49,7 +49,9 @@ class Comments extends Component
 
     public function deleteComment(Comment $comment)
     {
-        Gate::authorize('owner_or_admin', $comment);
+        if (Auth::id() !== $comment->user_id) {
+            abort(403);
+        }
 
         Comment::destroy($comment->id);
         $this->dispatch('comments-updated');

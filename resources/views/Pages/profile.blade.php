@@ -99,7 +99,7 @@
             <div class="my-4 bg-gray-200 w-full h-[3px]"></div>
         @endif
 
-        @if ($user->posts->count() === 0)
+        @if ($user->posts->count() === 0 && $user->id !== Auth::id())
             <h2 class="p-3 font-medium text-lg">{{ $user->username }} hasn't shared anything yet :(
             </h2>
         @endif
